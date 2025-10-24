@@ -1,18 +1,18 @@
-# Use official Nginx Alpine image
+# Use official lightweight Nginx image
 FROM nginx:alpine
 
-# Remove default nginx.conf
+# Remove default Nginx config
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy custom nginx config
+# Copy custom Nginx config
 COPY nginx.conf /etc/nginx/conf.d/
 
 # Copy website files
 COPY index.html /usr/share/nginx/html/
 COPY assets/ /usr/share/nginx/html/assets/
 
-# Expose port 80
-EXPOSE 80
+# Expose HTTP and HTTPS ports
+EXPOSE 80 443
 
 # Start Nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]
