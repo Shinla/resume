@@ -1,4 +1,4 @@
-# Use official lightweight Nginx image
+# Use lightweight Nginx image
 FROM nginx:alpine
 
 # Remove default Nginx config
@@ -10,6 +10,9 @@ COPY nginx.conf /etc/nginx/conf.d/
 # Copy website files
 COPY index.html /usr/share/nginx/html/
 COPY assets/ /usr/share/nginx/html/assets/
+
+# Copy SSL certificates
+COPY ssl/ /etc/nginx/ssl/
 
 # Expose HTTP and HTTPS ports
 EXPOSE 80 443
