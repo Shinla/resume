@@ -1,14 +1,18 @@
-# Use a lightweight base image
+# Use official Nginx Alpine image
 FROM nginx:alpine
 
-# Set the working directory to the web root
-WORKDIR /usr/share/nginx/html
+# Remove default nginx.conf
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy all files and folders from the code directory to the container
-COPY . .
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/conf.d/
 
-# Expose the default Nginx port
+# Copy website files
+COPY index.html /usr/share/nginx/html/
+COPY assets/ /usr/share/nginx/html/assets/
+
+# Expose port 80
 EXPOSE 80
 
-# Command to run when the container starts
+# Start Nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]
